@@ -1,22 +1,16 @@
-name: oldbuildtest
-
-# Controls when the action will run.
-on:
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+name: Build APK
+on: [push]
 jobs:
-  android:
+  build:
     runs-on: ubuntu-latest
     env:
       ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
-    
-      
-
-  
-  
     steps:
+      - uses: actions/checkout@v4
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@v1
+        with:
+          haxe-version: 4.2.5
       - name: Install Haxelib
         run: |
           haxelib setup ~/haxelib
@@ -28,67 +22,5 @@ jobs:
           haxelib install hxcpp
           haxelib run lime setup
           haxelib run lime setup flixel
-          
-      - name: Checkout
-        uses: actions/checkout@main
-
-      - name: Setup Android NDK
-        uses: nttld/setup-ndk@main
-        id: setup-ndk
-        with:
-          ndk-version: r21e
-
-      - name: Setup Java JDK
-        uses: actions/setup-java@main
-        with:
-          distribution: 'zulu'
-          java-version: '17'
-
-      - name: Setup Haxe
-        uses: krdlab/setup-haxe@master
-        with:
-          haxe-version: 4.3.7
-      
-      - name: Restore Previous Cache
-        id: cache-debug-build-android-restore
-        uses: actions/cache/restore@main
-        with:
-          path: |
-            ~/haxelib
-            ~/.gradle
-            export/release/android/haxe
-            export/release/android/obj
-          key: cache-build-Android
-
-      - name: Install Libraries
-        run: |
-          haxelib setup ~/haxelib
-          haxelib install hmm 
-          haxelib run hmm install
-
-      - name: Create Version Tag
-        run: echo "${{github.run_id}}" > VERSION
-
-      - name: Configure Android
-        run: |
-          haxelib run lime setup -alias -y
-          haxelib run lime config ANDROID_SDK $ANDROID_HOME
-          haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
-          haxelib run lime config JAVA_HOME $JAVA_HOME
-          haxelib run lime config ANDROID_SETUP true
-          haxelib list
-        env:
-          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
-
-      - name: Building
-        run: haxelib run lime build android -Dcommit_sha=$(git rev-parse --short HEAD)
-        env:
-          cert_pass: nullfunni
-          cert_alias_pass: nullfunni
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@main
-        with:
-          name: androidBuild
-          path: export/release/android/bin/app/build/outputs/apk/release/*.apk
-        
+      - name: Build Android
+        run: haxelib run lime build android
