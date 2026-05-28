@@ -17,27 +17,10 @@ jobs:
           haxelib install lime
           haxelib install openfl
           haxelib install flixel
-          haxelib install flixel-ui
+          # Instalamos solo lo mínimo vital que usa el motor base
           haxelib install flixel-addons
-          # Librerías con manejo de errores (si falla, continúa)
-          haxelib install crypto || true
-          haxelib install hxWebSockets || true
-          haxelib install spine-haxe || true
-          haxelib install linc_luajit || true
-          haxelib install luahscript || true
-          haxelib install hscript-iris-improved || true
-          haxelib install hxvlc || true
-          haxelib install hxCodec || true
-          haxelib install flxanimate || true
-          haxelib install tjson || true
-          haxelib install json2object || true
-          haxelib install funkin.vis || true
-          haxelib install grig.audio || true
-          haxelib install flxsoundfilters || true
-          haxelib install haxeui-core || true
-          haxelib install haxeui-flixel || true
-          haxelib install extension-androidtools || true
-          haxelib install modcharts || true
+          haxelib install hxcpp
+          haxelib install hscript
           haxelib run lime setup -y
           haxelib run lime setup flixel -y
           haxelib run lime build android
