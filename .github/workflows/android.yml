@@ -17,6 +17,18 @@ jobs:
   
   
     steps:
+      - name: Install Haxelib
+        run: |
+          haxelib setup ~/haxelib
+          haxelib install lime
+          haxelib install openfl
+          haxelib install flixel
+          haxelib install flixel-addons
+          haxelib install hscript
+          haxelib install hxcpp
+          haxelib run lime setup
+          haxelib run lime setup flixel
+          
       - name: Checkout
         uses: actions/checkout@main
 
