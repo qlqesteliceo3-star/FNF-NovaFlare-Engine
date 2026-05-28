@@ -14,6 +14,7 @@ jobs:
       - name: Install Haxelib
         run: |
           haxelib setup ~/haxelib
+          haxelib update
           haxelib install lime
           haxelib install openfl
           haxelib install flixel
@@ -22,10 +23,10 @@ jobs:
           haxelib install hxcpp
           haxelib install crypto
           haxelib install hxCodec
+          haxelib install actuate
+          haxelib install layout
+          haxelib install flixel-tools
           haxelib run lime setup
           haxelib run lime setup flixel
-
-       - name: Build Android
-        run: |
-          haxelib run lime setup android
-          haxelib run lime build android -D final
+      - name: Build Android
+        run: haxelib run lime build android
