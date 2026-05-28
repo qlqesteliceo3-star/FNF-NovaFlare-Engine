@@ -20,8 +20,11 @@ jobs:
           haxelib install flixel-addons
           haxelib install hscript
           haxelib install hxcpp
+          haxelib install crypto
+          haxelib install hxCodec
           haxelib run lime setup
           haxelib run lime setup flixel
+
        - name: Build Android
         run: |
           haxelib run lime setup android
