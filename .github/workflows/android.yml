@@ -22,7 +22,7 @@ jobs:
           haxelib install hxcpp
           haxelib run lime setup
           haxelib run lime setup flixel
-            - name: Build Android
+       - name: Build Android
         run: |
           haxelib run lime setup android
           haxelib run lime build android -D final
