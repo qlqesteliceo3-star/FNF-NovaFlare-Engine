@@ -11,22 +11,32 @@ jobs:
         uses: krdlab/setup-haxe@v1
         with:
           haxe-version: 4.2.5
-      - name: Install Haxelib
+      - name: Build Android
         run: |
           haxelib setup ~/haxelib
-          haxelib update
           haxelib install lime
           haxelib install openfl
           haxelib install flixel
+          haxelib install flixel-ui
           haxelib install flixel-addons
-          haxelib install hscript
-          haxelib install hxcpp
           haxelib install crypto
+          haxelib install hxWebSockets
+          haxelib install spine-haxe
+          haxelib install linc_luajit
+          haxelib install luahscript
+          haxelib install hscript-iris-improved
+          haxelib install hxvlc
           haxelib install hxCodec
-          haxelib install actuate
-          haxelib install layout
-          haxelib install flixel-tools
+          haxelib install flxanimate
+          haxelib install tjson
+          haxelib install json2object
+          haxelib install funkin.vis
+          haxelib install grig.audio
+          haxelib install flxsoundfilters
+          haxelib install haxeui-core
+          haxelib install haxeui-flixel
+          haxelib install extension-androidtools
+          haxelib install modcharts
           haxelib run lime setup
           haxelib run lime setup flixel
-      - name: Build Android
-        run: haxelib run lime build android
+          haxelib run lime build android
